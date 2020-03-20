@@ -1,12 +1,43 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <tab-bar>
+      <tab-bar-item path="/home" activeColor="#FF0000">
+        <img slot="item-icon" src="./assets/img/tabbar/home.png" alt="">
+        <img slot="item-icon-active" src="./assets/img/tabbar/home_active.png" alt="">
+        <div slot="item-text">首页</div>
+      </tab-bar-item>
+      <tab-bar-item path="/category" activeColor="#FF0000">
+        <img slot="item-icon" src="./assets/img/tabbar/category.png" alt="">
+        <img slot="item-icon-active" src="./assets/img/tabbar/category_active.png" alt="">
+        <div slot="item-text">分类</div>
+      </tab-bar-item>
+      <tab-bar-item path="/cart" activeColor="#FF0000">
+        <img slot="item-icon" src="./assets/img/tabbar/cart.png" alt="">
+        <img slot="item-icon-active" src="./assets/img/tabbar/cart_active.png" alt="">
+        <div slot="item-text">购物车</div>
+      </tab-bar-item>
+      <tab-bar-item path="/profile" activeColor="#FF0000">
+        <img slot="item-icon" src="./assets/img/tabbar/profile.png" alt="">
+        <img slot="item-icon-active" src="./assets/img/tabbar/profile_active.png" alt="">
+        <div slot="item-text">我的</div>
+      </tab-bar-item>
+    </tab-bar>
+    <router-view></router-view>
   </div>
 </template>
+
+<script>
+  import tabBar from 'components/common/tabBar/tabBar'
+  import tabBarItem from 'components/common/tabBar/tabBarItem'
+
+  export default {
+    name: 'App',
+    components: {
+      tabBar,
+      tabBarItem
+    }
+  }
+</script>
 
 <style>
  @import "./assets/css/base.css";
