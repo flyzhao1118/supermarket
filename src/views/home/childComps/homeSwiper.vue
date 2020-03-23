@@ -28,6 +28,7 @@
 <style scoped>
   #swiper {
     height: 200px;
+    padding: 3px;
   }
 
   img {
