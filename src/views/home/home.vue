@@ -3,16 +3,18 @@
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
     <home-swiper :banners="banners"></home-swiper>
     <home-recommend :recommend="recommend"></home-recommend>
-    <tab-control :titles="['流行','新款','精选']"></tab-control>
+    <tab-control :titles="['流行','新款','精选']" class="tab-control" @tabClick="tabClick"></tab-control>
+    <good-list :goods="goods[currentType].list"></good-list>
   </div>
 </template>
 
 <script>
-  import {getHomeMultidata} from 'network/home'
+  import {getHomeMultidata, getHomeGoods} from 'network/home'
   import navBar from 'components/common/navbar/navBar'
   import homeSwiper from './childComps/homeSwiper'
   import homeRecommend from './childComps/homeRecommend'
   import tabControl from 'components/content/tabControl'
+  import goodList from 'components/content/goods/goodList'
 
 
   export default {
@@ -21,7 +23,8 @@
       navBar,
       homeSwiper,
       homeRecommend,
-      tabControl
+      tabControl,
+      goodList
     },
 
     data() {
@@ -41,14 +44,53 @@
           {title: "个人护理", image: "//img.alicdn.com/tps/i4/TB1NP.teL1G3KVjSZFkwu1K4XXa.png_300x300Q90s50.jpg_.webp"},
           {title: "电气数码", image: "//img.alicdn.com/tps/i4/TB1leWXevWG3KVjSZFPwu0aiXXa.png_300x300Q90s50.jpg_.webp"},
           {title: "宠物生活", image: "//img.alicdn.com/tps/i4/TB1WrhIdfb2gK0jSZK9wu1EgFXa.png_300x300Q90s50.jpg_.webp"}
-        ]
+        ],
+
+        goods: {
+          'pop': {page: 0, list: [{img: "//g-search3.alicdn.com/img/bao/uploaded/i4/i5/TB1wuBGRpXXXXceXVXXYXGcGpXX_M2.SS2_180x180.jpg_.webp",
+              title: "日系洛丽塔夏季女萝莉可爱lolita袜子蕾丝白色丝袜超薄打底连裤袜", price: 9.90, payNumber: 190}, {img: "//img.alicdn.com/bao/uploaded/i1/830504935/TB2pXLuXg7pLuJjSZPiXXbP3VXa_!!830504935.jpg_200x200q90.jpg_.webp",
+              title: "Macchagirl《喜欢你》珍珠系列蕾丝轻礼服丝绒复古森系连衣裙2020", price: 269, payNumber: 41}]},
+          'new': {page: 0, list: []},
+          'sell': {page: 0, list: []}
+        },
+
+        currentType: 'pop'
       }
     },
-
     created() {
-      getHomeMultidata().then (res => {
+      this.getHomeMultidata();
+      this.getHomeGoods('pop');
+      this.getHomeGoods('new');
+      this.getHomeGoods('sell');
+    },
+    methods: {
+      getHomeMultidata() {
+        getHomeMultidata().then (res => {
+          // this.banners = res.data.banner.list;
+          // this.recommend = res.data.recommend.list;
+        });
+      },
+      getHomeGoods(type) {
+        const page=this.goods[type].page + 1;
+        getHomeGoods(type, page).then (res =>{
+          // this.goods[type].list.push(...res.data.list)
+          // this.goods[type].page += 1;
+        })
+      },
 
-      })
+      tabClick(index) {
+        switch (index) {
+          case 0:
+            this.currentType = 'pop';
+            break;
+          case 1:
+            this.currentType = 'new';
+            break;
+          case 2:
+            this.currentType = 'sell';
+            break;
+        }
+      }
     }
 
   }
@@ -66,5 +108,10 @@
     left: 0;
     right: 0;
     top: 0;
+    z-index: 9;
+  }
+
+  .tab-control {
+    z-index: 9;
   }
 </style>
