@@ -3,14 +3,16 @@
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
     <home-swiper :banners="banners"></home-swiper>
     <home-recommend :recommend="recommend"></home-recommend>
+    <tab-control :titles="['流行','新款','精选']"></tab-control>
   </div>
 </template>
 
 <script>
-  import navBar from 'components/common/navbar/navBar'
   import {getHomeMultidata} from 'network/home'
+  import navBar from 'components/common/navbar/navBar'
   import homeSwiper from './childComps/homeSwiper'
   import homeRecommend from './childComps/homeRecommend'
+  import tabControl from 'components/content/tabControl'
 
 
   export default {
@@ -18,7 +20,8 @@
     components: {
       navBar,
       homeSwiper,
-      homeRecommend
+      homeRecommend,
+      tabControl
     },
 
     data() {
@@ -52,8 +55,16 @@
 </script>
 
 <style scoped>
+  #home {
+    padding-top: 44px;
+  }
+
   .home-nav {
     background-color: var(--color-tint);
     color: #FFF;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
   }
 </style>
