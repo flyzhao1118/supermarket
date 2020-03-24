@@ -49,9 +49,18 @@
         goods: {
           'pop': {page: 0, list: [{img: "//g-search3.alicdn.com/img/bao/uploaded/i4/i5/TB1wuBGRpXXXXceXVXXYXGcGpXX_M2.SS2_180x180.jpg_.webp",
               title: "日系洛丽塔夏季女萝莉可爱lolita袜子蕾丝白色丝袜超薄打底连裤袜", price: 9.90, payNumber: 190}, {img: "//img.alicdn.com/bao/uploaded/i1/830504935/TB2pXLuXg7pLuJjSZPiXXbP3VXa_!!830504935.jpg_200x200q90.jpg_.webp",
-              title: "Macchagirl《喜欢你》珍珠系列蕾丝轻礼服丝绒复古森系连衣裙2020", price: 269, payNumber: 41}]},
-          'new': {page: 0, list: []},
-          'sell': {page: 0, list: []}
+              title: "Macchagirl《喜欢你》珍珠系列蕾丝轻礼服丝绒复古森系连衣裙2020", price: 269, payNumber: 41}, {img: "//img.alicdn.com/bao/uploaded/i2/1893596983/TB1w0guSFXXXXbfapXXXXXXXXXX_!!0-item_pic.jpg_200x200q90.jpg_.webp",
+              title: "两人故事原创设计民族风连衣裙秋装女红色印花旗袍裙旅游QZ0041", price: 214.2, payNumber: 4}, {img:
+                  "//img.alicdn.com/bao/uploaded/i1/TB1ucV1QXXXXXXEaXXXXXXXXXXX_!!0-item_pic.jpg_200x200q90.jpg_.webp",
+              title: "大码吊带内衣女高中学生少女抹胸女打底胖mm200斤内搭美背裹胸薄", price: 29.6, payNumber: 10}]},
+          'new': {page: 0, list: [{img: "//img.alicdn.com/bao/uploaded/i1/906719374/TB2EIxmkb5YBuNjSspoXXbeNFXa_!!906719374.jpg_200x200q90.jpg_.webp",
+              title: "LEIYU吊带背心女外穿潮短款露脐黑色性感露背内搭紧身欧美上衣夏", price: 58, payNumber: 594}, {img:
+                  "//img.alicdn.com/bao/uploaded/i4/2433798346/TB29xZxbJ3nyKJjSZFEXXXTTFXa_!!2433798346.jpg_200x200q90.jpg_.webp",
+              title: "2019夏季新款韩版露肩雪纺T恤女微胖连衣裙收腰荷叶边中长款裙子", price: 55.55, payNumber: 40}]},
+          'selection': {page: 0, list: [{img: "//img.alicdn.com/bao/uploaded/i1/823657541/TB246PElQKWBuNjy1zjXXcOypXa_!!823657541.jpg_200x200q90.jpg_.webp",
+              title: "2020夏季新款收腰小清新仙女裙气质网纱法国小众少女连衣裙夏裙子", price: 145, payNumber: 35}, {img:
+                  "//img.alicdn.com/bao/uploaded/i3/1015785338/TB2BppVlFuWBuNjSspnXXX1NVXa_!!1015785338.jpg_200x200q90.jpg_.webp",
+              title: "韩版甜美仙女裙2020夏季气质两穿短袖露肩背心裙连衣裙A字连衣裙", price: 49.69, payNumber: 31}]}
         },
 
         currentType: 'pop'
@@ -61,7 +70,7 @@
       this.getHomeMultidata();
       this.getHomeGoods('pop');
       this.getHomeGoods('new');
-      this.getHomeGoods('sell');
+      this.getHomeGoods('selection');
     },
     methods: {
       getHomeMultidata() {
@@ -87,7 +96,7 @@
             this.currentType = 'new';
             break;
           case 2:
-            this.currentType = 'sell';
+            this.currentType = 'selection';
             break;
         }
       }

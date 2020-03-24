@@ -46,7 +46,6 @@
   .goods-info .rmb {
     font-size: 8px;
     color: var(--color-high-text);
-    text-align: left;
     margin-left: 5px;
   }
 
@@ -65,8 +64,9 @@
   }
 
   .goods-info .pay-number {
-    margin-left: 65px;
+    margin-right: 10px;
     font-size: 8px;
-    color: rgba(100,100,100,0.7)
+    color: rgba(100,100,100,0.7);
+    float: right;
   }
 </style>
