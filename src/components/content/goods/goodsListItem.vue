@@ -23,7 +23,7 @@
   .goods-item {
     padding-bottom: 70px;
     position: relative;
-    width: 47%;
+    width: 47vw;
     background-color: #fff;
     border-radius: 5px;
     margin: 5px;
@@ -53,8 +53,8 @@
     font-size: 14px;
     line-height: 18px;
     overflow: hidden;
-    margin-bottom: 5px;
-    height: 38px;
+    margin-bottom: 8px;
+    height: 36px;
     text-align: center;
     padding: 0 5px;
   }
@@ -64,9 +64,10 @@
   }
 
   .goods-info .pay-number {
-    margin-right: 10px;
-    font-size: 8px;
+    font-size: 11px;
     color: rgba(100,100,100,0.7);
-    float: right;
+    position: absolute;
+    right: 10px;
+    top: 49px;
   }
 </style>

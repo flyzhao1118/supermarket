@@ -1,16 +1,19 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
-    <home-swiper :banners="banners"></home-swiper>
-    <home-recommend :recommend="recommend"></home-recommend>
-    <tab-control :titles="['流行','新款','精选']" class="tab-control" @tabClick="tabClick"></tab-control>
-    <good-list :goods="goods[currentType].list"></good-list>
+    <scroll class="content">
+      <home-swiper :banners="banners"></home-swiper>
+      <home-recommend :recommend="recommend"></home-recommend>
+      <tab-control :titles="['流行','新款','精选']" class="tab-control" @tabClick="tabClick"></tab-control>
+      <good-list :goods="goods[currentType].list"></good-list>
+    </scroll>
   </div>
 </template>
 
 <script>
   import {getHomeMultidata, getHomeGoods} from 'network/home'
   import navBar from 'components/common/navbar/navBar'
+  import scroll from 'components/common/scroll/scroll'
   import homeSwiper from './childComps/homeSwiper'
   import homeRecommend from './childComps/homeRecommend'
   import tabControl from 'components/content/tabControl'
@@ -21,6 +24,7 @@
     name: "home",
     components: {
       navBar,
+      scroll,
       homeSwiper,
       homeRecommend,
       tabControl,
@@ -107,6 +111,7 @@
 
 <style scoped>
   #home {
+    height: calc(var(--vh) * 100);
     padding-top: 44px;
   }
 
@@ -122,5 +127,10 @@
 
   .tab-control {
     z-index: 9;
+  }
+
+  .content {
+    overflow: hidden;
+    height: calc(100% - 49px);
   }
 </style>

@@ -12,7 +12,18 @@
     name: 'App',
     components: {
       mainTabbar
-    }
+    },
+    mounted() {
+      // 根据实际窗口大小定义vh
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+      // 监听浏览器窗口大小变化
+      window.addEventListener('resize', () => {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`)
+      })
+    },
   }
 </script>
 
