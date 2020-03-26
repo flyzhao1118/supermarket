@@ -1,12 +1,13 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
-    <scroll class="content">
+    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore">
       <home-swiper :banners="banners"></home-swiper>
       <home-recommend :recommend="recommend"></home-recommend>
       <tab-control :titles="['流行','新款','精选']" class="tab-control" @tabClick="tabClick"></tab-control>
       <good-list :goods="goods[currentType].list"></good-list>
     </scroll>
+    <backtop @click.native="backtop" v-show="isShowBacktop"></backtop>
   </div>
 </template>
 
@@ -18,6 +19,7 @@
   import homeRecommend from './childComps/homeRecommend'
   import tabControl from 'components/content/tabControl'
   import goodList from 'components/content/goods/goodList'
+  import backtop from 'components/content/backtop'
 
 
   export default {
@@ -28,7 +30,8 @@
       homeSwiper,
       homeRecommend,
       tabControl,
-      goodList
+      goodList,
+      backtop
     },
 
     data() {
@@ -67,7 +70,8 @@
               title: "韩版甜美仙女裙2020夏季气质两穿短袖露肩背心裙连衣裙A字连衣裙", price: 49.69, payNumber: 31}]}
         },
 
-        currentType: 'pop'
+        currentType: 'pop',
+        isShowBacktop: false
       }
     },
     created() {
@@ -75,6 +79,10 @@
       this.getHomeGoods('pop');
       this.getHomeGoods('new');
       this.getHomeGoods('selection');
+
+      this.$bus.$on('itemImageLoad', () => {
+        this.$refs.scroll.refresh()
+      })
     },
     methods: {
       getHomeMultidata() {
@@ -103,6 +111,19 @@
             this.currentType = 'selection';
             break;
         }
+      },
+
+      backtop() {
+        this.$refs.scroll.scrollTo(0,0)
+      },
+
+      contentScroll(position) {
+        this.isShowBacktop = position.y < -200
+      },
+
+      loadMore() {
+        this.getHomeGoods(this.currentType);
+        this.$refs.scroll.scroll.refresh()
       }
     }
 

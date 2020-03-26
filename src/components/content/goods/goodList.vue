@@ -25,6 +25,4 @@
     justify-content: space-around;
     background-color: #eee;
   }
-
-
 </style>
