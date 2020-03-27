@@ -13,6 +13,7 @@
 
 <script>
   import {getHomeMultidata, getHomeGoods} from 'network/home'
+  import {debounce} from 'common/util'
   import navBar from 'components/common/navbar/navBar'
   import scroll from 'components/common/scroll/scroll'
   import homeSwiper from './childComps/homeSwiper'
@@ -79,11 +80,17 @@
       this.getHomeGoods('pop');
       this.getHomeGoods('new');
       this.getHomeGoods('selection');
+    },
+
+    mounted() {
+      const refresh = debounce(this.$refs.scroll.refresh, 50);
+
 
       this.$bus.$on('itemImageLoad', () => {
-        this.$refs.scroll.refresh()
+        refresh()
       })
     },
+
     methods: {
       getHomeMultidata() {
         getHomeMultidata().then (res => {
@@ -96,6 +103,7 @@
         getHomeGoods(type, page).then (res =>{
           // this.goods[type].list.push(...res.data.list)
           // this.goods[type].page += 1;
+        this.$refs.scroll.finishPullUp()
         })
       },
 
@@ -123,7 +131,7 @@
 
       loadMore() {
         this.getHomeGoods(this.currentType);
-        this.$refs.scroll.scroll.refresh()
+        this.$refs.scroll.refresh()
       }
     }
 
