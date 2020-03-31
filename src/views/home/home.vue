@@ -1,10 +1,11 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
+    <tab-control :titles="['流行','新款','精选']" ref="tabControl1" @tabClick="tabClick" class="tab-control" v-show="isTabFixed"></tab-control>
     <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore">
-      <home-swiper :banners="banners"></home-swiper>
+      <home-swiper :banners="banners" @swiperImageLoad="swiperImageLoad"></home-swiper>
       <home-recommend :recommend="recommend"></home-recommend>
-      <tab-control :titles="['流行','新款','精选']" class="tab-control" @tabClick="tabClick"></tab-control>
+      <tab-control :titles="['流行','新款','精选']" ref="tabControl2" @tabClick="tabClick"></tab-control>
       <good-list :goods="goods[currentType].list"></good-list>
     </scroll>
     <backtop @click.native="backtop" v-show="isShowBacktop"></backtop>
@@ -60,7 +61,10 @@
               title: "Macchagirl《喜欢你》珍珠系列蕾丝轻礼服丝绒复古森系连衣裙2020", price: 269, payNumber: 41}, {img: "//img.alicdn.com/bao/uploaded/i2/1893596983/TB1w0guSFXXXXbfapXXXXXXXXXX_!!0-item_pic.jpg_200x200q90.jpg_.webp",
               title: "两人故事原创设计民族风连衣裙秋装女红色印花旗袍裙旅游QZ0041", price: 214.2, payNumber: 4}, {img:
                   "//img.alicdn.com/bao/uploaded/i1/TB1ucV1QXXXXXXEaXXXXXXXXXXX_!!0-item_pic.jpg_200x200q90.jpg_.webp",
-              title: "大码吊带内衣女高中学生少女抹胸女打底胖mm200斤内搭美背裹胸薄", price: 29.6, payNumber: 10}]},
+              title: "大码吊带内衣女高中学生少女抹胸女打底胖mm200斤内搭美背裹胸薄", price: 29.6, payNumber: 10}, {img: "//img.alicdn.com/bao/uploaded/i2/1893596983/TB1w0guSFXXXXbfapXXXXXXXXXX_!!0-item_pic.jpg_200x200q90.jpg_.webp",
+              title: "两人故事原创设计民族风连衣裙秋装女红色印花旗袍裙QZ0041", price: 214.2, payNumber: 4}, {img:
+                  "//img.alicdn.com/bao/uploaded/i1/TB1ucV1QXXXXXXEaXXXXXXXXXXX_!!0-item_pic.jpg_200x200q90.jpg_.webp",
+              title: "大码吊带内衣女高中学生少女抹胸女打底mm200斤内搭美背裹胸薄", price: 29.6, payNumber: 10}]},
           'new': {page: 0, list: [{img: "//img.alicdn.com/bao/uploaded/i1/906719374/TB2EIxmkb5YBuNjSspoXXbeNFXa_!!906719374.jpg_200x200q90.jpg_.webp",
               title: "LEIYU吊带背心女外穿潮短款露脐黑色性感露背内搭紧身欧美上衣夏", price: 58, payNumber: 594}, {img:
                   "//img.alicdn.com/bao/uploaded/i4/2433798346/TB29xZxbJ3nyKJjSZFEXXXTTFXa_!!2433798346.jpg_200x200q90.jpg_.webp",
@@ -72,26 +76,50 @@
         },
 
         currentType: 'pop',
-        isShowBacktop: false
+        isShowBacktop: false,
+        taboffsetTop: 0,
+        isTabFixed: false,
+        saveY: 0
       }
     },
     created() {
+      //请求banner和recommend数据
       this.getHomeMultidata();
+
+      //请求商品数据
       this.getHomeGoods('pop');
       this.getHomeGoods('new');
       this.getHomeGoods('selection');
     },
 
     mounted() {
-      const refresh = debounce(this.$refs.scroll.refresh, 50);
-
-
+      //图片加载完成事件监听
+      const refresh = this.debounce(this.$refs.scroll.refresh, 50); //防抖
       this.$bus.$on('itemImageLoad', () => {
         refresh()
       })
     },
 
+    activated() {
+      this.$refs.scroll.refresh();
+      this.$refs.scroll.scrollTo(0, this.saveY, 0);
+    },
+
+    deactivated() {
+      this.saveY = this.$refs.scroll.getScrollY();
+    },
+
     methods: {
+      debounce(func, delay) {
+        let timer = null;
+        return function (...args) {
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            func.apply(this, args)
+          }, delay);
+        }
+      },
+
       getHomeMultidata() {
         getHomeMultidata().then (res => {
           // this.banners = res.data.banner.list;
@@ -103,7 +131,7 @@
         getHomeGoods(type, page).then (res =>{
           // this.goods[type].list.push(...res.data.list)
           // this.goods[type].page += 1;
-        this.$refs.scroll.finishPullUp()
+        // this.$refs.scroll.finishPullUp()
         })
       },
 
@@ -119,6 +147,8 @@
             this.currentType = 'selection';
             break;
         }
+        this.$refs.tabControl1.currentIndex = index;
+        this.$refs.tabControl2.currentIndex = index;
       },
 
       backtop() {
@@ -126,12 +156,20 @@
       },
 
       contentScroll(position) {
-        this.isShowBacktop = position.y < -200
+        //判断backtop是否显示
+        this.isShowBacktop = position.y < -200;
+
+        //决定tabControl是否吸顶
+        this.isTabFixed = position.y < -this.taboffsetTop
       },
 
       loadMore() {
         this.getHomeGoods(this.currentType);
-        this.$refs.scroll.refresh()
+      },
+
+      swiperImageLoad() {
+        //吸顶效果赋值
+        this.taboffsetTop = this.$refs.tabControl2.$el.offsetTop
       }
     }
 
@@ -141,25 +179,23 @@
 <style scoped>
   #home {
     height: calc(var(--vh) * 100);
-    padding-top: 44px;
+    position: relative;
   }
 
   .home-nav {
     background-color: var(--color-tint);
     color: #FFF;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 9;
-  }
-
-  .tab-control {
-    z-index: 9;
   }
 
   .content {
     overflow: hidden;
-    height: calc(100% - 49px);
+    position: absolute;
+    top: 44px;
+    bottom: 49px;
+  }
+
+  .tab-control {
+    position: relative;
+    z-index: 9;
   }
 </style>

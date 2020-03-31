@@ -3,7 +3,7 @@
     <mt-swipe :auto="4000">
       <mt-swipe-item v-for="item in banners" :key="item.image">
         <a :href="item.link">
-          <img :src="item.image" alt="">
+          <img :src="item.image" alt="" @load="imageLoad">
         </a>
       </mt-swipe-item>
     </mt-swipe>
@@ -19,8 +19,21 @@
       'mt-swipe': Swipe,
       'mt-swipe-item': SwipeItem,
     },
+    data() {
+      return {
+        isLoad: false
+      }
+    },
     props: {
       banners: Array
+    },
+    methods: {
+      imageLoad() {
+        if (!this.isLoad) {
+          this.$emit('swiperImageLoad');
+          this.isLoad = true
+        }
+      }
     }
   }
 </script>
