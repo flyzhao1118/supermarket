@@ -56,13 +56,16 @@
         ],
 
         goods: {
-          'pop': {page: 0, list: [{img: "//g-search3.alicdn.com/img/bao/uploaded/i4/i5/TB1wuBGRpXXXXceXVXXYXGcGpXX_M2.SS2_180x180.jpg_.webp",
-              title: "日系洛丽塔夏季女萝莉可爱lolita袜子蕾丝白色丝袜超薄打底连裤袜", price: 9.90, payNumber: 190}, {img: "//img.alicdn.com/bao/uploaded/i1/830504935/TB2pXLuXg7pLuJjSZPiXXbP3VXa_!!830504935.jpg_200x200q90.jpg_.webp",
-              title: "Macchagirl《喜欢你》珍珠系列蕾丝轻礼服丝绒复古森系连衣裙2020", price: 269, payNumber: 41}, {img: "//img.alicdn.com/bao/uploaded/i2/1893596983/TB1w0guSFXXXXbfapXXXXXXXXXX_!!0-item_pic.jpg_200x200q90.jpg_.webp",
-              title: "两人故事原创设计民族风连衣裙秋装女红色印花旗袍裙旅游QZ0041", price: 214.2, payNumber: 4}, {img:
+          'pop': {page: 0, list: [{id: 1, img: "//g-search3.alicdn.com/img/bao/uploaded/i4/i5/TB1wuBGRpXXXXceXVXXYXGcGpXX_M2.SS2_180x180.jpg_.webp",
+              title: "日系洛丽塔夏季女萝莉可爱lolita袜子蕾丝白色丝袜超薄打底连裤袜", price: 9.90, payNumber: 190}, {id:2,img:
+                  "//img.alicdn.com/bao/uploaded/i1/830504935/TB2pXLuXg7pLuJjSZPiXXbP3VXa_!!830504935.jpg_200x200q90.jpg_.webp",
+              title: "Macchagirl《喜欢你》珍珠系列蕾丝轻礼服丝绒复古森系连衣裙2020", price: 269, payNumber: 41}, {id:3,img:
+                  "//img.alicdn.com/bao/uploaded/i2/1893596983/TB1w0guSFXXXXbfapXXXXXXXXXX_!!0-item_pic.jpg_200x200q90.jpg_.webp",
+              title: "两人故事原创设计民族风连衣裙秋装女红色印花旗袍裙旅游QZ0041", price: 214.2, payNumber: 4}, {id:4,img:
                   "//img.alicdn.com/bao/uploaded/i1/TB1ucV1QXXXXXXEaXXXXXXXXXXX_!!0-item_pic.jpg_200x200q90.jpg_.webp",
-              title: "大码吊带内衣女高中学生少女抹胸女打底胖mm200斤内搭美背裹胸薄", price: 29.6, payNumber: 10}, {img: "//img.alicdn.com/bao/uploaded/i2/1893596983/TB1w0guSFXXXXbfapXXXXXXXXXX_!!0-item_pic.jpg_200x200q90.jpg_.webp",
-              title: "两人故事原创设计民族风连衣裙秋装女红色印花旗袍裙QZ0041", price: 214.2, payNumber: 4}, {img:
+              title: "大码吊带内衣女高中学生少女抹胸女打底胖mm200斤内搭美背裹胸薄", price: 29.6, payNumber: 10}, {id:5,img:
+                  "//img.alicdn.com/bao/uploaded/i2/1893596983/TB1w0guSFXXXXbfapXXXXXXXXXX_!!0-item_pic.jpg_200x200q90.jpg_.webp",
+              title: "两人故事原创设计民族风连衣裙秋装女红色印花旗袍裙QZ0041", price: 214.2, payNumber: 4}, {id: 6,img:
                   "//img.alicdn.com/bao/uploaded/i1/TB1ucV1QXXXXXXEaXXXXXXXXXXX_!!0-item_pic.jpg_200x200q90.jpg_.webp",
               title: "大码吊带内衣女高中学生少女抹胸女打底mm200斤内搭美背裹胸薄", price: 29.6, payNumber: 10}]},
           'new': {page: 0, list: [{img: "//img.alicdn.com/bao/uploaded/i1/906719374/TB2EIxmkb5YBuNjSspoXXbeNFXa_!!906719374.jpg_200x200q90.jpg_.webp",
