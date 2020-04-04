@@ -97,8 +97,8 @@
 
     mounted() {
       //图片加载完成事件监听
-      const refresh = this.debounce(this.$refs.scroll.refresh, 50); //防抖
-      this.$bus.$on('itemImageLoad', () => {
+      const refresh = debounce(this.$refs.scroll.refresh, 50); //防抖
+      this.$bus.$on('homeItemImageLoad', () => {
         refresh()
       })
     },
@@ -109,20 +109,11 @@
     },
 
     deactivated() {
+      //保存滚动位置
       this.saveY = this.$refs.scroll.getScrollY();
     },
 
     methods: {
-      debounce(func, delay) {
-        let timer = null;
-        return function (...args) {
-          if (timer) clearTimeout(timer);
-          timer = setTimeout(() => {
-            func.apply(this, args)
-          }, delay);
-        }
-      },
-
       getHomeMultidata() {
         getHomeMultidata().then (res => {
           // this.banners = res.data.banner.list;
