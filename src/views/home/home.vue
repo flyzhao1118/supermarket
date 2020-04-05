@@ -21,7 +21,7 @@
   import homeRecommend from './childComps/homeRecommend'
   import tabControl from 'components/content/tabControl'
   import goodList from 'components/content/goods/goodList'
-  import backtop from 'components/content/backtop'
+  import {backtopMixin} from "../../common/mixin";
 
 
   export default {
@@ -33,8 +33,9 @@
       homeRecommend,
       tabControl,
       goodList,
-      backtop
     },
+
+    mixins: [backtopMixin],
 
     data() {
       return {
@@ -79,7 +80,6 @@
         },
 
         currentType: 'pop',
-        isShowBacktop: false,
         taboffsetTop: 0,
         isTabFixed: false,
         saveY: 0
@@ -143,10 +143,6 @@
         }
         this.$refs.tabControl1.currentIndex = index;
         this.$refs.tabControl2.currentIndex = index;
-      },
-
-      backtop() {
-        this.$refs.scroll.scrollTo(0,0)
       },
 
       contentScroll(position) {

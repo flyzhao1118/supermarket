@@ -7,6 +7,8 @@
       <detail-comment-info ref="comment"></detail-comment-info>
       <good-list ref="recommend"></good-list>
     </scroll>
+    <backtop @click.native="backtop" v-show="isShowBacktop"></backtop>
+    <detail-bottom-bar @addCart="addToCart"></detail-bottom-bar>
   </div>
 </template>
 
@@ -16,9 +18,11 @@
   import detailParamsInfo from './childComps/detailParamsInfo'
   import detailCommentInfo from './childComps/detailCommentInfo'
   import goodList from 'components/content/goods/goodList'
+  import detailBottomBar from './childComps/detailBottomBar'
   import scroll from 'components/common/scroll/scroll'
 
   import {getDetail, goods} from "network/detail"
+  import {backtopMixin} from "../../common/mixin";
 
   export default {
     name: "detail",
@@ -28,8 +32,10 @@
       detailParamsInfo,
       detailCommentInfo,
       goodList,
-      scroll
+      detailBottomBar,
+      scroll,
     },
+    mixins: [backtopMixin],
     data() {
       return {
         id: null,
@@ -38,6 +44,7 @@
         themeTopY: [],
         imageQuantity: 0,
         currentIndex: 0,
+        isShowBacktop: false
       }
     },
 
@@ -73,6 +80,27 @@
             this.$refs.nav.currentIndex = this.currentIndex
           }
         }
+
+        //判断backtop是否显示
+        this.isShowBacktop = position.y < -200;
+      },
+
+      addToCart() {
+        //获取购物车需要展示的信息
+        const product = {};
+        // product.image = this.topimage[0];
+        // product.title = this.goodInfo.title;
+        // product.desc = this.goodInfo.desc;
+        // product.price = this.goodInfo.price;
+        // product.id = this.id;
+
+        product.image = "//g-search3.alicdn.com/img/bao/uploaded/i4/i5/TB1wuBGRpXXXXceXVXXYXGcGpXX_M2.SS2_180x180.jpg_.webp";
+        product.title = "日系洛丽塔夏季女萝莉可爱lolita袜子蕾丝白色丝袜超薄打底连裤袜";
+        product.price = 9.90;
+        product.id = 1;
+
+        //将商品添加到购物车
+        this.$store.dispatch('addCart', product)
       }
     },
 
@@ -113,6 +141,6 @@
   }
 
   .content {
-    height: calc(var(--vh) * 100 - 44px);
+    height: calc(var(--vh) * 100 - 44px - 49px);
   }
 </style>
