@@ -97,7 +97,7 @@
 
     mounted() {
       //图片加载完成事件监听
-      const refresh = debounce(this.$refs.scroll.refresh, 50); //防抖
+      const refresh = debounce(this.$refs.scroll.refresh(), 50); //防抖
       this.$bus.$on('homeItemImageLoad', () => {
         refresh()
       })

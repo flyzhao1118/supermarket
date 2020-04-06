@@ -24,6 +24,8 @@
   import {getDetail, goods} from "network/detail"
   import {backtopMixin} from "../../common/mixin";
 
+  import {Toast} from 'mint-ui';
+
   export default {
     name: "detail",
     components: {
@@ -100,7 +102,13 @@
         product.id = 1;
 
         //将商品添加到购物车
-        this.$store.dispatch('addCart', product)
+        this.$store.dispatch('addCart', product).then(res => {
+          Toast({
+            message: res,
+            iconClass: 'mint-toast-icon mintui mintui-success',
+            duration: 2000
+          });
+        })
       }
     },
 
